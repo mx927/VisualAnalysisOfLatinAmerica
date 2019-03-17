@@ -6,19 +6,21 @@ import json
 class Path:
     def __init__(self):
         self.filse=os.getcwd() + '/serve/files/' 
-        self.origin_data=self.filse + 'latin_data/'    
+        self.origin_data=self.filse + 'latin_data/'   
+        self.data_by_year=self.filse + 'data_by_year/' 
     
 
 path = Path()
 
-def open_csv(path):
+def open_csv(path,encoding='utf-8-sig'):
     if path.find('.csv') == -1:
         path += '.csv'
 
     if isFile(path) is False:
         raise RuntimeError(f'csv文件路径错误：{path}')
+        
             
-    with open(path,'r') as file:
+    with open(path,'r',encoding=encoding) as file:
         csv_data = csv.reader(file)
         array = []
         for line in csv_data:
@@ -45,7 +47,6 @@ def save_csv(data,path):
     with open(path, 'w') as file:
         csv_writer = csv.writer(file)
         for line in data:
-            print(line)
             csv_writer.writerow(line)
 
 
